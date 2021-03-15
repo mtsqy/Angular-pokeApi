@@ -5,14 +5,14 @@ import { DetailComponent } from './detail/detail.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: './home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'details/:id', component: DetailComponent },
   { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

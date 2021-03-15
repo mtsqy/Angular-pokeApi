@@ -9,12 +9,10 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-  pokemons: Pokemon[];
-  pokemon: PokemonId;
   types: Type[];
   selectedId: number;
   filteredPokemons: Pokemon[];
-  currentPokemons: Pokemon[] = this.pokemons;
+  currentPokemons: Pokemon[];
   
   constructor(
     private shared: SharedService,
@@ -25,29 +23,27 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/details', pokemon.id]);
   }
 
-  isSelected(pokemon) {
-    return pokemon.id === this.selectedId;
-  }
-
   filterT(props) {
+    this.currentPokemons = null
     if(props==0) {
       return this.showAllPokemons();
     }
     this.shared.getPokemonsByType(props).subscribe((pokemon: Pokemon[]) => {
-      this.currentPokemons = pokemon;
       pokemon.map(each=> this.shared.getPokeById(each.id).subscribe((details: PokemonId)=>{each['details'] = details}))
+      this.currentPokemons = pokemon;
     });
   }
 
   showAllPokemons() {
+    this.currentPokemons = null
     this.shared.getPoke().subscribe((pokemon: Pokemon[]) => {
+      pokemon.map(each  => this.shared.getPokeById(each.id).subscribe((details: PokemonId)=>{each['details'] = details}));
       this.currentPokemons = pokemon;
-      pokemon.map(each=> this.shared.getPokeById(each.id).subscribe((details: PokemonId)=>{each['details'] = details}))
     });
   }
 
   ngOnInit() {
-    this.showAllPokemons();
+    this.showAllPokemons(); 
     this.route.paramMap.subscribe((params: ParamMap)=> {
       let id = parseInt(params.get('id'));
       this.selectedId = id;

@@ -5,14 +5,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FilterPokemonComponent } from './home/filter-pokemon/filter-pokemon.component';
 import { FilterPipe } from './shared/filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    FilterPokemonComponent,
     FilterPipe
   ],
   imports: [

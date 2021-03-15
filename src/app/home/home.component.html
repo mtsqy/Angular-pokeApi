@@ -5,15 +5,15 @@
             <option *ngFor="let t of types" [value]="t.id">{{ t.name }}</option>
         </select>
     </div>
-    <div class="d-flex flex-row col-sm-3" *ngFor="let pokemon of currentPokemons" [class.selected]="isSelected(pokemon)">
+    <div class="d-flex flex-row col-sm-3" *ngFor="let pokemon of currentPokemons">
     <div class="card d-flex flex-row" style="width: 100%;">
         <div class="circleBack">
-            <img class="sprite" [src]="pokemon.details.sprites.front_default">
+            <img class="sprite" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
         </div>
-    <div class="card-body">
-        <p>Pokemon</p>
-        <p class="card-title">{{pokemon.name}}</p>   
-    </div>
+        <div class="card-body">
+            <p>Pokemon</p>
+            <p class="card-title">{{pokemon.name}}</p>
+        </div>
         <a href="" class="btn btn-primary" [routerLink]="['/details', pokemon.id]" (click)="onSelect(pokemon)">></a>
     </div>
     </div>
